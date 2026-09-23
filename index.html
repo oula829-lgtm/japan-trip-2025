@@ -1,62 +1,642 @@
+
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2025 大阪名古屋親子遊</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --jp-bg: #F9F9F9; --jp-blue: #5D82B2; --jp-text: #333; }
-        body { background: var(--jp-bg); color: var(--jp-text); font-family: sans-serif; padding-bottom: 70px; }
-        .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .nav-btn { background: #5D82B2; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; }
-        .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-right: 4px; }
-        .tag-food { background: #FFEBEB; color: #D65A5A; }
-        .tag-tips { background: #EBF5FF; color: #5D82B2; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>頭城．礁溪．宜蘭．羅東｜三天兩夜親子行程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#6B3A26;
+    --teal-700:#95502F;
+    --teal-500:#C9793F;
+    --gold-500:#DFA23F;
+    --gold-300:#F1D9A4;
+    --coral-600:#C1512F;
+    --paper:#FBF2E4;
+    --paper-2:#F4E3C9;
+    --ink:#3E2A1D;
+    --ink-soft:#8A6E56;
+    --line:#E5CFA7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Noto Serif TC',serif;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    background:var(--teal-900);
+    color:var(--paper);
+    padding:64px 24px 90px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 12% 20%, rgba(223,162,63,0.20), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(201,121,63,0.55), transparent 45%);
+  }
+  .hero-inner{position:relative;max-width:840px;margin:0 auto;text-align:center;}
+  .hero-eyebrow{
+    font-size:14px;
+    letter-spacing:0.08em;
+    color:var(--gold-300, #e8cf9c);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(32px,5vw,52px);
+    line-height:1.35;
+    font-weight:900;
+    margin:0 0 20px;
+  }
+  .hero h1 .accent{color:var(--gold-500);}
+  .hero p.sub{
+    font-size:17px;
+    color:#EAD9C2;
+    max-width:520px;
+    margin:0 auto;
+    line-height:1.9;
+  }
+  .hero-meta{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:34px;
+  }
+  .meta-pill{
+    border:1px solid rgba(246,241,228,0.28);
+    border-radius:999px;
+    padding:9px 20px;
+    font-size:14px;
+    color:#F1E4D0;
+    background:rgba(246,241,228,0.08);
+  }
+
+  /* ---------- Day Nav ---------- */
+  .day-nav-wrap{
+    max-width:900px;
+    margin:-46px auto 0;
+    padding:0 20px;
+    position:relative;
+    z-index:5;
+  }
+  .day-nav{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 18px 40px rgba(107,58,38,0.20);
+    overflow:hidden;
+  }
+  .day-btn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    padding:20px 12px 18px;
+    font-family:'Noto Sans TC',sans-serif;
+    color:var(--ink-soft);
+    border-right:1px solid var(--line);
+    transition:background .2s ease, color .2s ease;
+  }
+  .day-btn:last-child{border-right:none;}
+  .day-btn .d-date{display:block;font-size:12px;letter-spacing:.04em;margin-bottom:6px;}
+  .day-btn .d-title{display:block;font-family:'Noto Serif TC',serif;font-weight:700;font-size:18px;color:var(--teal-900);}
+  .day-btn.active{background:var(--teal-700);}
+  .day-btn.active .d-date{color:var(--gold-300,#e8cf9c);}
+  .day-btn.active .d-title{color:var(--paper);}
+  .day-btn:hover:not(.active){background:var(--paper-2);}
+
+  /* ---------- Main ---------- */
+  main{max-width:760px;margin:0 auto;padding:52px 20px 30px;}
+  .day-panel{display:none;}
+  .day-panel.active{display:block;animation:fadeUp .45s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+  .day-intro{margin-bottom:38px;}
+  .day-intro h2{font-size:26px;color:var(--teal-900);margin:0 0 8px;}
+  .day-intro p{color:var(--ink-soft);font-size:15px;line-height:1.8;margin:0;}
+  .weather-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:14px;
+    padding:8px 16px;
+    background:#fffdf8;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:13.5px;
+    color:var(--ink);
+  }
+  .weather-chip .w-temp{font-weight:700;color:var(--teal-700);}
+  .weather-note{
+    display:block;
+    margin-top:6px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:6px;top:6px;bottom:6px;
+    width:2px;
+    background:var(--line);
+  }
+  .stop{position:relative;padding-bottom:34px;}
+  .stop:last-child{padding-bottom:0;}
+  .stop::before{
+    content:"";
+    position:absolute;
+    left:-26px;top:4px;
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--paper);
+    border:3px solid var(--teal-500);
+  }
+  .stop.food::before{border-color:var(--coral-600);}
+  .stop.stay::before{border-color:var(--gold-500);}
+  .stop.reserved::before{background:var(--coral-600);border-color:var(--coral-600);}
+
+  .stop-card{
+    background:#fffdf8;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+  }
+  .stop-card.reserved{
+    border-color:var(--coral-600);
+    box-shadow:0 4px 0 rgba(193,80,58,0.08) inset;
+  }
+  .stop-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .stop-time{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    color:var(--teal-700);
+    font-size:15px;
+    min-width:52px;
+  }
+  .stop-name{font-weight:700;font-size:17px;color:var(--ink);}
+  .tag{
+    display:inline-block;
+    font-size:11px;
+    padding:2px 9px;
+    border-radius:999px;
+    background:var(--paper-2);
+    color:var(--ink-soft);
+    margin-left:auto;
+  }
+  .tag.food{background:#f3e2dc;color:var(--coral-600);}
+  .tag.attraction{background:#F4E1C9;color:var(--teal-700);}
+  .tag.stay{background:#f4e8cd;color:#9a6c17;}
+  .tag.booked{background:var(--coral-600);color:#fff;}
+  .stop-note{
+    margin:8px 0 0;
+    font-size:14px;
+    line-height:1.85;
+    color:var(--ink-soft);
+  }
+  .kid-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:12px;
+    color:var(--teal-700);
+    margin-top:8px;
+    background:#F4E1C9;
+    padding:3px 9px;
+    border-radius:999px;
+  }
+  .stop-meta{
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+    font-size:13px;
+    line-height:1.9;
+    color:var(--ink-soft);
+  }
+  .stop-meta b{color:var(--ink);font-weight:600;}
+
+  /* ---------- Tips ---------- */
+  .tips{
+    max-width:760px;
+    margin:10px auto 60px;
+    padding:0 20px;
+  }
+  .tips-box{
+    background:var(--teal-900);
+    color:var(--paper);
+    border-radius:18px;
+    padding:32px 30px;
+  }
+  .tips-box h3{margin:0 0 16px;font-size:20px;color:var(--gold-300,#e8cf9c);}
+  .tips-box ul{margin:0;padding-left:20px;line-height:2;font-size:14.5px;color:#EAD9C2;}
+  .tips-box li::marker{color:var(--gold-500);}
+
+  footer{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13px;
+    padding:20px 20px 50px;
+  }
+
+  @media(max-width:560px){
+    .day-btn .d-title{font-size:15px;}
+    .day-btn .d-date{font-size:11px;}
+    .hero{padding:50px 18px 76px;}
+    .stop-name{font-size:16px;}
+  }
+</style>
 </head>
 <body>
-    <header class="p-5 bg-white border-b sticky top-0 z-50">
-        <h1 class="text-xl font-bold tracking-tight">JAPAN 2025 🇯🇵</h1>
-        <p class="text-xs text-gray-400">兩大兩小 (5Y & 2Y) 親子遊</p>
-    </header>
 
-    <main class="p-4">
-        <div class="mb-6">
-            <h2 class="text-sm font-bold text-blue-500 mb-2">5/13 (週三) 大阪</h2>
-            <div class="card">
-                <div class="flex justify-between"><h3>大阪兒童樂園 ➔ 天王寺動物園</h3><button onclick="nav('大阪兒童樂園')" class="nav-btn">導航</button></div>
-                <p class="text-xs text-gray-500 mt-2">下午：樂高探索中心 ➔ 心齋橋</p>
-                <div class="mt-2"><span class="tag tag-tips">攻略：樂高中心在天保山，建議與海遊館同天或調整動線</span></div>
-            </div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">FAMILY TRIP · 宜蘭</div>
+    <h1>頭城．礁溪．宜蘭．羅東<br><span class="accent">三天兩夜親子小旅行</span></h1>
+    <p class="sub">從海邊小鎮吃到溫泉小鎮,再一路逛進羅東的森林與夜市——為 3 歲和 5 歲的孩子留好放電與休息的節奏。</p>
+    <div class="hero-meta">
+      <span class="meta-pill">2026/9/25(五) - 9/27(日)</span>
+      <span class="meta-pill">全家 4 人・幼童 3 歲、5 歲</span>
+      <span class="meta-pill">千兵衛燒肉 9/27 14:00 已訂位</span>
+      <span class="meta-pill">民宿：冬山鄉安農三路6巷36弄1號</span>
+    </div>
+  </div>
+</div>
+
+<div class="day-nav-wrap">
+  <div class="day-nav">
+    <button class="day-btn active" data-day="1"><span class="d-date">9/25 週五</span><span class="d-title">頭城</span></button>
+    <button class="day-btn" data-day="2"><span class="d-date">9/26 週六</span><span class="d-title">南方澳・礁溪</span></button>
+    <button class="day-btn" data-day="3"><span class="d-date">9/27 週日</span><span class="d-title">羅東</span></button>
+  </div>
+</div>
+
+<main>
+
+  <!-- DAY 1 -->
+  <section class="day-panel active" id="day-1">
+    <div class="day-intro">
+      <h2>Day 1・頭城慢慢吃</h2>
+      <p>早上 7 點從台北出發、走雪隧,大約 8 點多就能到頭城,時間抓得剛好可以趕上蘭陽博物館開館。中午吃西式輕食,下午吃冰、買麵包、到海邊吹吹風,傍晚吃完潤餅後開車回冬山鄉的民宿。</p>
+      <div class="weather-chip">☀️ 9/25(五) <span class="w-temp">31°C</span> / 23°C・降雨機率 15%</div>
+      <span class="weather-note">（查詢於 9/23,行前請再次確認最新預報)</span>
+    </div>
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">07:00</span>
+            <span class="stop-name">🚗 台北出發</span>
+            <span class="tag attraction">交通</span>
+          </div>
+          <p class="stop-note">走國道5號經雪隧,順利的話約 8:00-8:15 可抵達頭城烏石港一帶。</p>
         </div>
+      </div>
 
-        <div class="mb-6">
-            <h2 class="text-sm font-bold text-blue-500 mb-2">5/14 (週四) 大阪</h2>
-            <div class="card">
-                <div class="flex justify-between"><h3>海遊館 ➔ 道頓堀 ➔ 阿倍野 ➔ 通天閣</h3><button onclick="nav('海遊館')" class="nav-btn">導航</button></div>
-                <div class="mt-2"><span class="tag tag-food">必吃：章魚燒、串炸</span><span class="tag tag-tips">阿倍野看夕陽超美</span></div>
-            </div>
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">09:00</span>
+            <span class="stop-name">🏛️ 蘭陽博物館</span>
+            <span class="tag attraction">加碼推薦</span>
+          </div>
+          <p class="stop-note">9:00 開館,建議一到就先去領「兒童考古探索廳」號碼牌,第一場 9:30-10:15,可以讓孩子玩沙尋寶、體驗考古挖掘,很適合 3、5 歲的年紀。等候或場次之間可以順遊常設展,建築本身也很好拍照。</p>
+          <span class="kid-badge">室內・雨天備案</span>
+          <p class="stop-meta"><b>地址</b>宜蘭縣頭城鎮青雲路三段750號(烏石港旁)・<b>時間</b>9:00-17:00,週三公休・<b>推薦</b>兒童考古探索廳、烏石礁濕地生態展區</p>
         </div>
+      </div>
 
-        <div class="mb-6">
-            <h2 class="text-sm font-bold text-orange-500 mb-2">5/16 (週六) 名古屋</h2>
-            <div class="card">
-                <div class="flex justify-between"><h3>空中長廊 ➔ 熱田神宮 ➔ 日本樂高樂園</h3><button onclick="nav('日本樂高樂園')" class="nav-btn">導航</button></div>
-                <p class="text-xs mt-2 text-gray-600">攻略：樂高樂園在金城埠頭，週六人多請提早入園。</p>
-            </div>
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">11:30</span>
+            <span class="stop-name">🐟 Vast Fish&amp;Chips 費雪奇普仕</span>
+            <span class="tag food">午餐</span>
+          </div>
+          <p class="stop-note">炸魚薯條為主的西式简餐,口味清爽不油膩,小孩接受度高。</p>
+          <span class="kid-badge">適合幼兒</span>
+          <p class="stop-meta"><b>地址</b>宜蘭縣頭城鎮青雲路三段387巷1號・<b>時間</b>約10:30起(建議先電話確認)・<b>推薦</b>經典炸魚薯條、炸魷魚圈,店內附設衝浪選物</p>
         </div>
+      </div>
 
-        <div class="card bg-gray-800 text-white">
-            <h3 class="font-bold border-b border-gray-600 pb-2 mb-2">🚨 緊急資訊</h3>
-            <p class="text-xs">住宿 1：大阪難波日和飯店</p>
-            <p class="text-xs">緊急電話：110 (警) / 119 (醫)</p>
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">13:00</span>
+            <span class="stop-name">🍧 阿宗芋冰城</span>
+            <span class="tag food">點心</span>
+          </div>
+          <p class="stop-note">頭城老字號芋頭冰,天氣熱時很消暑,份量可以大家一起分著吃。</p>
+          <p class="stop-meta"><b>地址</b>頭城濱海公路(烏石港週邊)・<b>推薦</b>招牌芋頭叭噗(3球約45元),無香料無乳製品的古早味台式冰</p>
         </div>
-    </main>
+      </div>
 
-    <script>
-        function nav(p) { window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(p)}`); }
-    </script>
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">13:30</span>
+            <span class="stop-name">🥐 奶酥人</span>
+            <span class="tag food">點心・伴手</span>
+          </div>
+          <p class="stop-note">順路買幾個麵包,可以當隔天早餐或路上的點心備用。</p>
+          <p class="stop-meta"><b>推薦</b>招牌奶酥系列麵包,建議現場詢問當天現烤品項,趁新鮮買回去當早餐最好吃</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">15:00</span>
+            <span class="stop-name">🌊 烏石港・外澳海邊走走</span>
+            <span class="tag attraction">景點</span>
+          </div>
+          <p class="stop-note">吃飽後留一段比較鬆散的時間,讓孩子在海邊吹風、踏踏浪,大人也能趁機在車上小憩,不用把行程排太滿。</p>
+        </div>
+      </div>
+
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">17:30</span>
+            <span class="stop-name">🌯 春捲伯-頭城店</span>
+            <span class="tag food">晚餐</span>
+          </div>
+          <p class="stop-note">在地潤餅老店,料多新鮮,吃完直接開車返回民宿。</p>
+          <p class="stop-meta"><b>時間</b>平日12:00-18:00,假日11:00-18:00・<b>推薦</b>招牌套餐(春捲+手掌大蝦餅),現炸現包、建議趁熱吃</p>
+        </div>
+      </div>
+
+      <div class="stop stay">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">19:00</span>
+            <span class="stop-name">🏠 入住民宿</span>
+            <span class="tag stay">住宿</span>
+          </div>
+          <p class="stop-note">地址：冬山鄉安農三路6巷36弄1號。從頭城開車過來大約 40 分鐘,建議吃完晚餐直接南下,避免孩子太晚睡。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day-panel" id="day-2">
+    <div class="day-intro">
+      <h2>Day 2・南方澳豆腐岬玩水＋海鮮，再到礁溪泡湯</h2>
+      <p>民宿吃完早餐先往南到南方澳,豆腐岬是有堤岸圍住的小海灣,浪比較平穩,比開放式沙灘更適合讓孩子安心下水;中午就在附近吃現撈海鮮合菜。下午再一路往北到礁溪泡腳沖沙、吃排隊小吃,最後到宜蘭市拍照、東門夜市收尾再回民宿。這天南北都要跑,車程會比較多,節奏抓鬆一點就好。</p>
+      <div class="weather-chip">⛅ 9/26(六) <span class="w-temp">31°C</span> / 24°C・降雨機率 15%</div>
+      <span class="weather-note">（查詢於 9/23,行前請再次確認最新預報)</span>
+    </div>
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">09:00</span>
+            <span class="stop-name">🚗 民宿出發</span>
+            <span class="tag stay">住宿</span>
+          </div>
+          <p class="stop-note">從冬山鄉安農三路6巷36弄1號開車到南方澳約 20-25 分鐘,記得帶泳衣、大毛巾和備用衣物,今天會玩水。</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">09:30</span>
+            <span class="stop-name">🏖️ 豆腐岬風景區</span>
+            <span class="tag attraction">加碼推薦</span>
+          </div>
+          <p class="stop-note">南方澳漁港東側的小海灣,由堤岸圍出一個平靜的內灣,浪比開放式沙灘小很多,是在地人游泳、玩水的熱門地點。現場有免費淋浴間和更衣室可以沖洗,建議還是讓孩子在較淺的區域玩水,大人全程陪同。</p>
+          <span class="kid-badge">堤岸內灣・浪較小</span>
+          <p class="stop-meta"><b>地址</b>宜蘭縣蘇澳鎮海岸路(南方澳漁港旁)・<b>時間</b>全天開放,免門票・<b>推薦</b>堤岸內灣戲水、免費淋浴更衣室</p>
+        </div>
+      </div>
+
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">11:30</span>
+            <span class="stop-name">🦐 海珍活海鮮餐廳</span>
+            <span class="tag food">午餐</span>
+          </div>
+          <p class="stop-note">南方澳海港路上的人氣海鮮餐廳,自己有漁船、生猛海鮮都是自家捕撈,Google 評價高達 4.7 顆星,消費就招待一盤生魚片,也有 1000-2500 元不等的合菜組合很適合全家共享。假日建議提早前往,現場常常大排長龍。</p>
+          <p class="stop-meta"><b>地址</b>宜蘭縣蘇澳鎮南方澳海港路(海鮮餐廳一條街上)・<b>推薦</b>招牌酥炸鮟鱇魚塊、當令生魚片、清蒸/熱炒現撈魚蝦</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">13:00</span>
+            <span class="stop-name">🚗 前往礁溪</span>
+            <span class="tag attraction">交通</span>
+          </div>
+          <p class="stop-note">南方澳到礁溪車程約 35-40 分鐘,是這天路程最長的一段,可以讓孩子在車上小睡一下。</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">13:45</span>
+            <span class="stop-name">♨️ 湯圍溝溫泉公園</span>
+            <span class="tag attraction">加碼推薦</span>
+          </div>
+          <p class="stop-note">免費開放的溫泉泡腳池與溫泉魚體驗,剛好可以幫孩子把腳上殘留的沙沖乾淨,腹地不大、走路就能到,很適合當作長途車程後的緩和活動。</p>
+          <span class="kid-badge">免費・玩水</span>
+          <p class="stop-meta"><b>地址</b>宜蘭縣礁溪鄉中山路二段106巷・<b>時間</b>全天開放,免門票・<b>推薦</b>溫泉泡腳池、溫泉魚體驗池</p>
+        </div>
+      </div>
+
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">15:15</span>
+            <span class="stop-name">🥙 柯氏蔥油餅 ＋ 礁溪香腸伯</span>
+            <span class="tag food">點心</span>
+          </div>
+          <p class="stop-note">兩家都是在地排隊小吃,中午已經吃了豐盛海鮮,這裡買一份分著吃當點心就好,邊走邊吃、現場座位有限。</p>
+          <p class="stop-meta"><b>推薦</b>柯氏蔥油餅招牌加蛋蔥油餅;礁溪香腸伯招牌炭烤香腸,兩家都在礁溪市區,步行可達</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">16:15</span>
+            <span class="stop-name">🎨 幾米公園</span>
+            <span class="tag attraction">加碼推薦</span>
+          </div>
+          <p class="stop-note">就在宜蘭火車站旁,大型繪本裝置藝術很好拍照,空間開放好走,孩子可以自由跑跳,是宜蘭市區最受親子歡迎的景點之一。</p>
+          <span class="kid-badge">適合幼兒・拍照</span>
+          <p class="stop-meta"><b>地址</b>宜蘭縣宜蘭市宜興路一段(宜蘭火車站旁)・<b>時間</b>全天開放,免門票・<b>推薦</b>向左走向右走裝置、記憶片段裝置藝術</p>
+        </div>
+      </div>
+
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">17:30</span>
+            <span class="stop-name">🏮 東門夜市</span>
+            <span class="tag food">晚餐</span>
+          </div>
+          <p class="stop-note">在夜市內解決晚餐,今天中午已經吃過海鮮,晚餐可以吃輕鬆一點：<strong>宜蘭阿亮香雞排宜大店</strong>買一份分食,<strong>父山白俠粥品</strong>的海鮮粥也可以大家共享一鍋就好,不用點太多。父山白俠營業至 19:30、週二公休,建議提早前往避開排隊人潮。</p>
+          <span class="kid-badge">建議份量減半</span>
+          <p class="stop-meta"><b>父山白俠地址</b>宜蘭縣宜蘭市中山路二段188號・<b>時間</b>10:30-19:30,週二公休・<b>推薦</b>阿亮香雞排原味大雞排;父山白俠海鮮粥(附贈炸物、吻仔魚吃到飽)</p>
+        </div>
+      </div>
+
+      <div class="stop stay">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">19:30</span>
+            <span class="stop-name">🚗 返回民宿</span>
+            <span class="tag stay">住宿</span>
+          </div>
+          <p class="stop-note">從宜蘭市區回冬山鄉安農三路6巷36弄1號車程約 20-25 分鐘,回去後剛好讓孩子洗澡休息,把身上的沙子和防曬乳沖乾淨。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day-panel" id="day-3">
+    <div class="day-intro">
+      <h2>Day 3・羅東森林動物園＋燒肉慶功</h2>
+      <p>退房後直奔羅東,先讓孩子在戶外放電、跟小動物近距離互動,中午吃輕食留胃口給下午的燒肉,14:00 準時赴千兵衛的訂位,再視體力決定要不要逛羅東夜市。</p>
+      <div class="weather-chip">⛅ 9/27(日) <span class="w-temp">32°C</span> / 24°C・降雨機率 10%</div>
+      <span class="weather-note">（查詢於 9/23,行前請再次確認最新預報)</span>
+    </div>
+    <div class="timeline">
+
+      <div class="stop stay">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">08:30</span>
+            <span class="stop-name">🧳 民宿退房</span>
+            <span class="tag stay">住宿</span>
+          </div>
+          <p class="stop-note">冬山鄉安農三路6巷36弄1號距離羅東市區、星夢森林劇場都只要 10 分鐘左右車程,退房後不用急著趕路,可以從容吃完早餐再出發。</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">09:00</span>
+            <span class="stop-name">🌲 羅東林業文化園區</span>
+            <span class="tag attraction">景點</span>
+          </div>
+          <p class="stop-note">園區腹地大、綠蔭多,還有早期運材小火車頭可以看,很適合早上讓孩子跑跳放電,不用花門票錢。</p>
+          <p class="stop-meta"><b>地址</b>宜蘭縣羅東鎮中正北路118號・<b>時間</b>戶外園區全天開放,免門票・<b>推薦</b>竹林步道、貯木池、蒸汽老火車頭</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">10:30</span>
+            <span class="stop-name">🦦 星夢森林劇場</span>
+            <span class="tag attraction">加碼推薦</span>
+          </div>
+          <p class="stop-note">位於冬山鄉,離羅東市區車程約 10 分鐘,可以近距離餵食水豚、梅花鹿、羊駝等小動物,是目前宜蘭人氣最高的親子動物園之一。營業時間 9:00-17:00,最晚售票 16:30,免預約,附免費停車場,2 歲以下幼兒免費入園。</p>
+          <span class="kid-badge">超適合 3、5 歲</span>
+          <p class="stop-meta"><b>地址</b>宜蘭縣冬山鄉境安二路323號・<b>時間</b>9:00-17:00(最晚售票16:30)・<b>推薦</b>水豚餵食體驗、梅花鹿餵食區</p>
+        </div>
+      </div>
+
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">12:00</span>
+            <span class="stop-name">🍜 林場肉羹</span>
+            <span class="tag food">輕食午餐</span>
+          </div>
+          <p class="stop-note">羅東老字號銅板小吃,建議吃巧不吃飽,留點胃口給下午 14:00 的燒肉。</p>
+          <p class="stop-meta"><b>推薦</b>招牌肉羹麵、肉羹湯,湯頭清爽帶點微酸,份量小適合當輕食</p>
+        </div>
+      </div>
+
+      <div class="stop food reserved">
+        <div class="stop-card reserved">
+          <div class="stop-top">
+            <span class="stop-time">14:00</span>
+            <span class="stop-name">🥩 千兵衛炭火燒肉-羅東店</span>
+            <span class="tag booked">已訂位</span>
+          </div>
+          <p class="stop-note">全家慶功大餐,已完成訂位,建議提前 5-10 分鐘抵達確認座位與兒童座椅需求。</p>
+          <p class="stop-meta"><b>時間</b>已訂位 9/27 14:00・<b>推薦</b>依店內套餐選擇原味炭火燒肉拼盤,現場可加點兒童取用餐具</p>
+        </div>
+      </div>
+
+      <div class="stop food">
+        <div class="stop-card">
+          <div class="stop-top">
+            <span class="stop-time">16:00</span>
+            <span class="stop-name">🏮 羅東夜市</span>
+            <span class="tag food">收尾</span>
+          </div>
+          <p class="stop-note">燒肉後孩子和大人可能都吃得很飽,這個時段多數攤位尚未全開,建議純逛街、買點伴手禮即可,不用特別安排再吃一輪,視體力決定停留時間再賦歸。</p>
+          <p class="stop-meta"><b>地址</b>宜蘭縣羅東鎮民生路・興東路一帶・<b>時間</b>多數攤位約傍晚17:00後陸續開始營業・<b>推薦</b>羅東紅豆湯圓、包心粉圓(晚間攤位開了可再嘗試)</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="tips">
+  <div class="tips-box">
+    <h3>親子旅遊小提醒</h3>
+    <ul>
+      <li>行程刻意保留彈性,每天最多安排 1 個需要走比較多路的景點,其餘時間留給吃東西跟休息。</li>
+      <li>蘭陽博物館、宜蘭市區店家多有冷氣,若天氣太熱或臨時下雨,可以直接替換成室內行程。</li>
+      <li>星夢森林劇場、湯圍溝溫泉公園都免預約,建議依照孩子當天精神狀況彈性提早或延後。</li>
+      <li>千兵衛燒肉已訂位在 9/27 14:00,建議中午餐盡量清淡少量,並事先詢問店家是否提供兒童椅。</li>
+      <li>夏末秋初紫外線仍強,外出景點建議準備防曬、帽子與足量飲水。</li>
+      <li>Day 2 會到南方澳豆腐岬玩水,記得帶泳衣、大毛巾、備用衣物和夾腳拖;豆腐岬是堤岸圍住的內灣,浪比開放沙灘小很多,但仍建議大人全程陪同、留意水深。</li>
+    </ul>
+  </div>
+</div>
+
+<footer>頭城．礁溪．宜蘭．羅東｜三天兩夜親子行程規劃</footer>
+
+<script>
+  const btns = document.querySelectorAll('.day-btn');
+  const panels = document.querySelectorAll('.day-panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const day = btn.getAttribute('data-day');
+      btns.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('day-' + day).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+</script>
+
 </body>
 </html>
